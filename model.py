@@ -238,9 +238,9 @@ class PatchEmbed(nn.Module):
         return x, (H, W)
 
 
-class BasicStem(nn.Module):
+class BasicEmbed(nn.Module):
     def __init__(self, in_ch=6, out_ch=64, with_pos=False):
-        super(BasicStem, self).__init__()
+        super(BasicEmbed, self).__init__()
         hidden_ch = out_ch // 2
         self.conv1 = nn.Conv2d(in_ch, hidden_ch, kernel_size=3, stride=2, padding=1, bias=False)
         self.norm1 = nn.BatchNorm2d(hidden_ch)
@@ -311,7 +311,7 @@ class pwT(nn.Module):
         self.depths = depths
         self.apply_transform = apply_transform
 
-        self.stem = BasicStem(in_ch=in_chans, out_ch=embed_dims[0], with_pos=True)
+        self.stem = BasicEmbed(in_ch=in_chans, out_ch=embed_dims[0], with_pos=True)
 
         self.patch_embed_2 = PatchEmbed(patch_size=2, in_ch=embed_dims[0], out_ch=embed_dims[1], with_pos=True)
         self.patch_embed_3 = PatchEmbed(patch_size=2, in_ch=embed_dims[1], out_ch=embed_dims[2], with_pos=True)
